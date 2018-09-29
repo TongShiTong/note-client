@@ -10,7 +10,7 @@
         <el-button type="primary">登录</el-button>
       </div>
       <div class="btn-wrap mb30">
-        <el-button>
+        <el-button @click="$router.push('/register')">
           注册
         </el-button>
       </div>
