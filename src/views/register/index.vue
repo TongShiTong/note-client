@@ -14,12 +14,12 @@
       </el-input>
     </div>
     <div class="input-wrap">
-      <el-input v-model="formData.password" placeholder="密码">
+      <el-input v-model="formData.password" type="password" placeholder="密码" @keyup.enter.native="handelRegister">
 
       </el-input>
     </div>
     <div class="btn-wrap">
-      <el-button type="primary">
+      <el-button type="primary" @click="handelRegister">
         注册
       </el-button>
     </div>
@@ -36,7 +36,19 @@
               password: ''
             }
           }
-        }
+        },
+      methods: {
+          handelRegister() {
+            this.$axios.post('/user', this.formData).then(res => {
+              if (res.code == 200) {
+                this.$message.success(res.msg)
+                setTimeout(() => {this.$router.push('/index')}, 500)
+              }else {
+                this.$message.error(res.msg)
+              }
+            })
+          }
+      }
     }
 </script>
 
