@@ -19,9 +19,14 @@
       </quill-editor>
 
       <div class="category">
-        <span class="strong">分类：</span>
+        <span class="strong clearfix">
+          <span class="fll">分类：</span>
+          <div class="fll">
+            <radios :options="categories" v-model="formData.category"></radios>
+          </div>
+        </span>
       </div>
-      <el-button type="primary" class="btn">
+      <el-button type="primary" class="btn" @click="handleFb">
         发布笔记
       </el-button>
     </div>
@@ -32,11 +37,13 @@
   import 'quill/dist/quill.snow.css'
   import {quillEditor, Quill} from 'vue-quill-editor'
   import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+  import radios from '@/components/Radios'
 
   Quill.register('modules/ImageExtend', ImageExtend)
     export default {
       components: {
-        quillEditor
+        quillEditor,
+        radios
       },
       data() {
         return {
@@ -44,7 +51,9 @@
             content: '',
             title: '',
             contentText: '',
+            category: ''
           },
+          categories: [],
           // 富文本框参数设置
           editorOption: {
             modules: {
@@ -72,7 +81,24 @@
         handleChange({quill, html, text}) {
           this.formData.contentText = text
           this.formData.contentText = this.formData.contentText.substring(0, 200) + '...'
+        },
+        getCategory() {
+          this.$axios.get('/category').then(res => {
+            this.categories =res.data
+          })
+        },
+        handleFb() {
+          this.$axios.post('/article', this.formData).then(res => {
+            if(res.code == 200){
+              console.log(res)
+              this.$message.success(res.msg)
+              this.$router.push('/index')
+            }
+          })
         }
+      },
+      created() {
+        this.getCategory()
       }
     }
 </script>

@@ -6,7 +6,7 @@ let baseURL = env == 'development' ? '/api' : '/'
 
 const instance = axios.create({
   baseURL,
-  timeout: 15000,
+  timeout: 15000
 })
 
 const xhr = {

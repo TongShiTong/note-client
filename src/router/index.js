@@ -8,7 +8,8 @@ const components = {
   layout: () => import('@/views/layout'),
   index: () => import('@/views/index/index'),
   register: () => import('@/views/register/index'),
-  writeNote: () => import('@/views/writeNote/index')
+  writeNote: () => import('@/views/writeNote/index'),
+  article: () => import('@/views/article/index')
 }
 
 const router = new Router({
@@ -39,6 +40,14 @@ const router = new Router({
             title: '写笔记'
           },
           component: components.writeNote
+        },
+        {
+          path: 'article/:id',
+          meta: {
+            title: '文章详情'
+          },
+          name: 'article',
+          component: components.article
         }
       ]
     }

@@ -38,4 +38,10 @@ export default {
   body {
     background: #f1f1f1;
   }
+
+  .img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 </style>
